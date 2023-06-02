@@ -6,7 +6,7 @@ const songRoutes = require('./routes/songRoutes')
 const errorHandler = require('./middlewares/errorHandler')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000 || 8888 | 3100
 
 mongoose
   .connect('mongodb://localhost/music-library', {
