@@ -1,0 +1,19 @@
+{
+  "name": "musiclibrary_rest-api",
+  "version": "1.0.0",
+  "description": "REST API with Express to perform CRUD operations on a MongoDB database for a music library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "API REST",
+    "express",
+    "CRUD",
+    "MongoDB",
+    "music",
+    "library"
+  ],
+  "author": "Diego perez perez <diegoperezperez518@gmail.com>",
+  "license": "MIT"
+}
