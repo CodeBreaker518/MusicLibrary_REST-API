@@ -1,33 +1,34 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const singerRoutes = require('./routes/singerRoutes')
-const albumRoutes = require('./routes/albumRoutes')
-const songRoutes = require('./routes/songRoutes')
-const errorHandler = require('./middlewares/errorHandler')
-
 const app = express()
-const port = process.env.PORT || 3000 || 8888 | 3100
 
-mongoose
-  .connect('mongodb://localhost/music-library', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log('Connected to MongoDB')
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err)
-  })
-
+// Middleware
 app.use(express.json())
 
-app.use('/singers', singerRoutes)
-app.use('/albums', albumRoutes)
-app.use('/songs', songRoutes)
+// Connect to MongoDB
+mongoose.connect('mongodb://127.0.0.1/music-library', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+const db = mongoose.connection
 
-app.use(errorHandler)
+db.once('open', () => {
+  console.log('Connected to MongoDB')
+})
 
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+
+// Routes
+const singersRouter = require('./routes/singers')
+const albumsRouter = require('./routes/albums')
+const songsRouter = require('./routes/songs')
+
+app.use('/singers', singersRouter)
+app.use('/albums', albumsRouter)
+app.use('/songs', songsRouter)
+
+// Start the server
+const port = process.env.PORT || 3000
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
+  console.log(`Server is listening on port ${port}`)
 })

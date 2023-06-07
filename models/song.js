@@ -7,8 +7,12 @@ const songSchema = new mongoose.Schema({
     unique: true,
   },
   length: {
-    type: String,
+    type: Number,
     required: true,
+  },
+  album: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Album',
   },
 })
 

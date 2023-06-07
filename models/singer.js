@@ -14,6 +14,12 @@ const singerSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  albums: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Album',
+    },
+  ],
 })
 
 module.exports = mongoose.model('Singer', singerSchema)
